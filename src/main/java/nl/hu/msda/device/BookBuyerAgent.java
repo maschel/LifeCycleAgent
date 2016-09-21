@@ -8,7 +8,7 @@ import jade.core.behaviours.TickerBehaviour;
  * Hello world!
  *
  */
-public class TestAgent extends Agent
+public class BookBuyerAgent extends Agent
 {
     // The title of the book to buy
     private String targetBookTitle;
@@ -19,7 +19,7 @@ public class TestAgent extends Agent
     // Agent Initialisation
     protected void setup() {
         // Print welcome message
-        System.out.println( "Hello! Buyer agent " + getAID().getName() + " is ready." );
+        System.out.println( "Hello! Buyer-agent " + getAID().getName() + " is ready." );
 
         // Get the title of the book to buy as a start-up argument
         Object[] args = getArguments();
@@ -31,7 +31,7 @@ public class TestAgent extends Agent
             addBehaviour(new TickerBehaviour(this, 60000) {
                 @Override
                 protected void onTick() {
-                    myAgent.addBehaviour(new RequestPerformer());
+                    myAgent.addBehaviour(null);
                 }
             });
         }

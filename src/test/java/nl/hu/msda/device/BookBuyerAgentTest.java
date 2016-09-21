@@ -7,7 +7,7 @@ import junit.framework.TestSuite;
 /**
  * Unit test for simple TestAgent.
  */
-public class TestAgentTest
+public class BookBuyerAgentTest
     extends TestCase
 {
     /**
@@ -15,7 +15,7 @@ public class TestAgentTest
      *
      * @param testName name of the test case
      */
-    public TestAgentTest(String testName )
+    public BookBuyerAgentTest(String testName )
     {
         super( testName );
     }
@@ -25,7 +25,7 @@ public class TestAgentTest
      */
     public static Test suite()
     {
-        return new TestSuite( TestAgentTest.class );
+        return new TestSuite( BookBuyerAgentTest.class );
     }
 
     /**

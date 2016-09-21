@@ -39,7 +39,7 @@
                                 <argument>jade.Boot</argument>
                                 <argument>-gui</argument>
                                 <argument>-agents</argument>
-                                <argument>test:nl.hu.msda.device.TestAgent</argument>
+                                <argument>test:nl.hu.msda.device.BookBuyerAgent(A-Test-Book)</argument>
                             </arguments>
                         </configuration>
                     </execution>
