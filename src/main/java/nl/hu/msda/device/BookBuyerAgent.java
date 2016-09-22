@@ -2,12 +2,11 @@ package nl.hu.msda.device;
 
 import jade.core.AID;
 import jade.core.Agent;
+import jade.core.behaviours.Behaviour;
 import jade.core.behaviours.TickerBehaviour;
+import jade.lang.acl.MessageTemplate;
 
-/**
- * Hello world!
- *
- */
+
 public class BookBuyerAgent extends Agent
 {
     // The title of the book to buy
@@ -31,7 +30,7 @@ public class BookBuyerAgent extends Agent
             addBehaviour(new TickerBehaviour(this, 60000) {
                 @Override
                 protected void onTick() {
-                    myAgent.addBehaviour(null);
+                    myAgent.addBehaviour(new RequestPerformer());
                 }
             });
         }
@@ -47,4 +46,28 @@ public class BookBuyerAgent extends Agent
         // Print a dismissal message
         System.out.println("Buyer-agent " + getAID().getName() + " terminating.");
     }
+
+    /**
+     Inner class RequestPerformer.
+     This is the behaviour used by Book-buyer agents to request seller
+     agents the target book.
+     */
+    private class RequestPerformer extends Behaviour {
+        private AID bestSeller;
+        private int bestPrice;
+        private int repliesCnt = 0;
+        private MessageTemplate mt;
+        private int step = 0;
+
+        public void action() {
+            switch (step) {
+                case 0:
+
+            }
+        }
+
+        public boolean done() {
+            return false;
+        }
+    } // End of inner class RequestPerformer
 }
