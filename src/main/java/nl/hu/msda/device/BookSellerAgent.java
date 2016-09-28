@@ -2,18 +2,24 @@ package nl.hu.msda.device;
 
 
 import jade.core.Agent;
+import jade.core.Service;
 import jade.core.behaviours.CyclicBehaviour;
 import jade.core.behaviours.OneShotBehaviour;
+import jade.domain.DFService;
+import jade.domain.FIPAAgentManagement.DFAgentDescription;
+import jade.domain.FIPAAgentManagement.ServiceDescription;
+import jade.domain.FIPAException;
 import jade.lang.acl.ACLMessage;
 import jade.lang.acl.MessageTemplate;
 
+import javax.swing.*;
 import java.util.Hashtable;
 
 public class BookSellerAgent extends Agent {
     // The catalogue of books for sale (maps the title of a book to its price)
     private Hashtable catalogue;
     // The GUI by means of which the user can add books int the catalogue
-    //private BookSellerGui myGui;
+    private BookSellerGui myGui;
 
     // Put agent initializations here
     protected void setup() {
@@ -21,8 +27,25 @@ public class BookSellerAgent extends Agent {
         catalogue = new Hashtable();
 
         // Create and show the GUI
-        // myGui = new BookSellerGui(this);
-        // myGui.show();
+        JFrame frame = new JFrame(this.getLocalName());
+        myGui = new BookSellerGui(this);
+        frame.setContentPane(myGui.getPanel());
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.pack();
+        frame.setVisible(true);
+
+        // Register the book-selling service in the yellow pages
+        DFAgentDescription dfd = new DFAgentDescription();
+        dfd.setName(getAID());
+        ServiceDescription sd = new ServiceDescription();
+        sd.setType("book-selling");
+        sd.setName("JADE-book-trading");
+        dfd.addServices(sd);
+        try {
+            DFService.register(this, dfd);
+        } catch (FIPAException fe) {
+            fe.printStackTrace();
+        }
 
         // Add the behaviour serving request for offer from buyer agents
         addBehaviour(new OfferRequestsServer());
@@ -33,8 +56,15 @@ public class BookSellerAgent extends Agent {
 
     // Put agent clean-up operations here
     protected void takeDown() {
+        // Deregister from the yellow pages
+        try {
+            DFService.deregister(this);
+        } catch(FIPAException fe) {
+            fe.printStackTrace();
+        }
+
         // Close the GUI
-        // myGui.dispose();
+        myGui.dispose();
         // Printout a dismissal message
         System.out.println("Seller-agent " + getAID().getName() + " terminating.");
     }
