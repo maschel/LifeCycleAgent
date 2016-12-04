@@ -2,6 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/LCACloud/LCACloud.iml" filepath="$PROJECT_DIR$/LCACloud/LCACloud.iml" />
+      <module fileurl="file://$PROJECT_DIR$/LCACloudWebAPI/LCACloudWebAPI.iml" filepath="$PROJECT_DIR$/LCACloudWebAPI/LCACloudWebAPI.iml" />
+      <module fileurl="file://$PROJECT_DIR$/LCADevice/LCADevice.iml" filepath="$PROJECT_DIR$/LCADevice/LCADevice.iml" />
       <module fileurl="file://$PROJECT_DIR$/LifeCycleAgent.iml" filepath="$PROJECT_DIR$/LifeCycleAgent.iml" />
     </modules>
   </component>
