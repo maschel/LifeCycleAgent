@@ -36,7 +36,7 @@
 package com.maschel.lca.lcacloud.webapi.rest;
 
 import com.google.gson.Gson;
-import com.maschel.lca.lcacloud.webapi.gateway.GatewayService;
+import com.maschel.lca.lcacloud.webapi.gateway.JadeGatewayService;
 import com.maschel.lca.message.request.SensorRequestMessage;
 import com.maschel.lca.message.response.SensorValueMessage;
 
@@ -48,7 +48,7 @@ import javax.ws.rs.core.Response;
 @Path("/sensor")
 public class SensorService {
 
-    GatewayService gatewayService = new GatewayService();
+    JadeGatewayService jadeGatewayService = new JadeGatewayService();
     Gson gson = new Gson();
 
     @GET
@@ -57,7 +57,7 @@ public class SensorService {
                                    @PathParam("sensorName") String sensorName) {
 
         SensorRequestMessage sensorRequestMessage = new SensorRequestMessage(sensorName);
-        SensorValueMessage message = gatewayService.sensorRequest(deviceId, sensorRequestMessage);
+        SensorValueMessage message = jadeGatewayService.sensorRequest(deviceId, sensorRequestMessage);
         return Response.status(200).entity(gson.toJson(message)).build();
     }
 

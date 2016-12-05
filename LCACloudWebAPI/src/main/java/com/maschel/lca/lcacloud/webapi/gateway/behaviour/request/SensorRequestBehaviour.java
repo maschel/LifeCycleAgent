@@ -36,7 +36,7 @@
 package com.maschel.lca.lcacloud.webapi.gateway.behaviour.request;
 
 import com.google.gson.Gson;
-import com.maschel.lca.lcacloud.webapi.gateway.GatewayService;
+import com.maschel.lca.lcacloud.webapi.gateway.JadeGatewayService;
 import com.maschel.lca.message.request.SensorRequestMessage;
 import jade.core.AID;
 import jade.core.behaviours.OneShotBehaviour;
@@ -56,9 +56,9 @@ public class SensorRequestBehaviour extends OneShotBehaviour {
 
     public void action() {
         ACLMessage msg = new ACLMessage(ACLMessage.REQUEST);
-        String localName = GatewayService.CLOUD_AGENT_DEVICE_PREFIX + deviceId;
+        String localName = JadeGatewayService.CLOUD_AGENT_DEVICE_PREFIX + deviceId;
         msg.addReceiver(new AID(localName, AID.ISLOCALNAME));
-        msg.setOntology(GatewayService.SENSOR_ONTOLOGY);
+        msg.setOntology(JadeGatewayService.SENSOR_ONTOLOGY);
         msg.setContent(gson.toJson(requestMessage));
         myAgent.send(msg);
     }

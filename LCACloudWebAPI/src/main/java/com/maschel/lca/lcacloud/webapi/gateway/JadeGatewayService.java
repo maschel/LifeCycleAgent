@@ -44,7 +44,7 @@ import jade.util.leap.Properties;
 import jade.wrapper.ControllerException;
 import jade.wrapper.gateway.JadeGateway;
 
-public class GatewayService {
+public class JadeGatewayService {
 
     public static final String SENSOR_ONTOLOGY = "sensor";
     public static final String CLOUD_AGENT_DEVICE_PREFIX = "Cloud";
