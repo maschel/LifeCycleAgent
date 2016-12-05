@@ -21,7 +21,37 @@
         <finalName>lcacloudwebapi</finalName>
     </build>
 
+    <properties>
+        <jersey2.version>2.24.1</jersey2.version>
+    </properties>
     <dependencies>
+
+        <dependency>
+            <groupId>com.maschel</groupId>
+            <artifactId>LCAMessage</artifactId>
+            <version>0.3.3-SNAPSHOT</version>
+        </dependency>
+
+        <dependency>
+            <groupId>javax.ws.rs</groupId>
+            <artifactId>javax.ws.rs-api</artifactId>
+            <version>2.0.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.glassfish.jersey.containers</groupId>
+            <artifactId>jersey-container-servlet</artifactId>
+            <version>${jersey2.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.glassfish.jersey.core</groupId>
+            <artifactId>jersey-server</artifactId>
+            <version>${jersey2.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.glassfish.jersey.core</groupId>
+            <artifactId>jersey-client</artifactId>
+            <version>${jersey2.version}</version>
+        </dependency>
 
         <dependency>
             <groupId>com.google.code.gson</groupId>

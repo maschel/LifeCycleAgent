@@ -33,19 +33,29 @@
  *
  */
 
-package com.maschel.lca.lcadevice.agent.message.response;
+package com.maschel.lca.message.mapper;
 
+import org.modelmapper.ModelMapper;
+import org.modelmapper.TypeToken;
 
-import com.maschel.lca.lcadevice.agent.message.dto.AnalyticsSensorDataDTO;
-
+import java.lang.reflect.Type;
 import java.util.List;
 
-public class AnalyticsDataMessage {
-    public String deviceId;
-    public List<AnalyticsSensorDataDTO> values;
+public abstract class Mapper<OBJ, DTO> {
 
-    public AnalyticsDataMessage(String deviceId, List<AnalyticsSensorDataDTO> values) {
-        this.deviceId = deviceId;
-        this.values = values;
+    public ModelMapper modelMapper = new ModelMapper();
+
+    public abstract OBJ DtoToObject(DTO dto);
+
+    public abstract DTO ObjectToDto(OBJ obj);
+
+    public final List<OBJ> DtosToObjects(List<DTO> dtos) {
+        Type listType = new TypeToken<List<OBJ>>() {}.getType();
+        return modelMapper.map(dtos, listType);
+    }
+
+    public final List<DTO> ObjectsToDtos(List<OBJ> objs) {
+        Type listType = new TypeToken<List<DTO>>() {}.getType();
+        return modelMapper.map(objs, listType);
     }
 }

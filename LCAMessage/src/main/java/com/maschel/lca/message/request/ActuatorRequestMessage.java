@@ -33,20 +33,18 @@
  *
  */
 
-package com.maschel.lca.lcadevice.agent.message.dto;
+package com.maschel.lca.message.request;
 
-public class AnalyticsSensorDataDTO {
-    private String name;
-    private String aggregate;
-    private String date;
-    private Object value;
+import java.util.List;
 
-    public AnalyticsSensorDataDTO() {}
+public class ActuatorRequestMessage {
+    public String actuator;
+    public List<Object> arguments;
 
-    public AnalyticsSensorDataDTO(String name, String aggregate, String date, Object value) {
-        this.name = name;
-        this.aggregate = aggregate;
-        this.date = date;
-        this.value = value;
+    public ActuatorRequestMessage() {}
+
+    public ActuatorRequestMessage(String actuator, List<Object> arguments) {
+        this.actuator = actuator;
+        this.arguments = arguments;
     }
 }

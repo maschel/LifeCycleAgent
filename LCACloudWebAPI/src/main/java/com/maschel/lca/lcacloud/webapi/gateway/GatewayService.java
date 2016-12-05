@@ -36,7 +36,10 @@
 package com.maschel.lca.lcacloud.webapi.gateway;
 
 import com.maschel.lca.lcacloud.webapi.gateway.behaviour.request.SensorRequestBehaviour;
-import com.maschel.lca.lcacloud.webapi.gateway.message.request.SensorRequestMessage;
+import com.maschel.lca.lcacloud.webapi.gateway.behaviour.response.SensorResponseBehaviour;
+import com.maschel.lca.message.request.SensorRequestMessage;
+import com.maschel.lca.message.response.SensorValueMessage;
+import jade.core.behaviours.SequentialBehaviour;
 import jade.util.leap.Properties;
 import jade.wrapper.ControllerException;
 import jade.wrapper.gateway.JadeGateway;
@@ -46,14 +49,29 @@ public class GatewayService {
     public static final String SENSOR_ONTOLOGY = "sensor";
     public static final String CLOUD_AGENT_DEVICE_PREFIX = "Cloud";
 
-    public void sensorRequest(String deviceId, SensorRequestMessage message) {
-        JadeGateway.init(null, new Properties());
+    public SensorValueMessage sensorRequest(String deviceId, SensorRequestMessage message) {
+
+        connectGateway();
+
+        SensorRequestBehaviour requestBehaviour = new SensorRequestBehaviour(deviceId, message);
+        SensorResponseBehaviour responseBehaviour = new SensorResponseBehaviour();
+        SequentialBehaviour sequence = new SequentialBehaviour();
+        sequence.addSubBehaviour(requestBehaviour);
+        sequence.addSubBehaviour(responseBehaviour);
         try {
-            JadeGateway.execute(new SensorRequestBehaviour(deviceId, message));
+            JadeGateway.execute(sequence);
+            return responseBehaviour.getResult();
         } catch (ControllerException e) {
             e.printStackTrace();
         } catch (InterruptedException e) {
             e.printStackTrace();
+        }
+        return null;
+    }
+
+    private void connectGateway() {
+        if (!JadeGateway.isGatewayActive()) {
+            JadeGateway.init(null, new Properties());
         }
     }
 }

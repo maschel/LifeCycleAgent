@@ -33,20 +33,41 @@
  *
  */
 
-package com.maschel.lca.lcadevice.agent.message.mapper;
+package com.maschel.lca.message;
 
-import com.maschel.lca.message.dto.AnalyticsSensorDataDTO;
-import com.maschel.lca.lcadevice.analytics.storage.AnalyticsSensorData;
-import com.maschel.lca.message.mapper.Mapper;
+import junit.framework.Test;
+import junit.framework.TestCase;
+import junit.framework.TestSuite;
 
-public class AnalyticsSensorDataMapper extends Mapper<AnalyticsSensorData, AnalyticsSensorDataDTO> {
-    @Override
-    public AnalyticsSensorData DtoToObject(AnalyticsSensorDataDTO analyticsSensorDataDTO) {
-        return modelMapper.map(analyticsSensorDataDTO, AnalyticsSensorData.class);
+/**
+ * Unit test for simple App.
+ */
+public class MessageTest
+    extends TestCase
+{
+    /**
+     * Create the test case
+     *
+     * @param testName name of the test case
+     */
+    public MessageTest(String testName )
+    {
+        super( testName );
     }
 
-    @Override
-    public AnalyticsSensorDataDTO ObjectToDto(AnalyticsSensorData analyticsSensorData) {
-        return modelMapper.map(analyticsSensorData, AnalyticsSensorDataDTO.class);
+    /**
+     * @return the suite of tests being tested
+     */
+    public static Test suite()
+    {
+        return new TestSuite( MessageTest.class );
+    }
+
+    /**
+     * Rigourous Test :-)
+     */
+    public void testApp()
+    {
+        assertTrue( true );
     }
 }

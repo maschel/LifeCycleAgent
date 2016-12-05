@@ -117,6 +117,12 @@
     <dependencies>
 
         <dependency>
+            <groupId>com.maschel</groupId>
+            <artifactId>LCAMessage</artifactId>
+            <version>0.3.3-SNAPSHOT</version>
+        </dependency>
+
+        <dependency>
             <groupId>org.mapdb</groupId>
             <artifactId>mapdb</artifactId>
             <version>3.0.2</version>

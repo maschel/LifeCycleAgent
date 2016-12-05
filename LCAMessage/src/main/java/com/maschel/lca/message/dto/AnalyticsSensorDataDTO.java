@@ -33,16 +33,20 @@
  *
  */
 
-package com.maschel.lca.lcadevice.agent.message.response;
+package com.maschel.lca.message.dto;
 
-import com.maschel.lca.lcadevice.agent.message.dto.SensorDTO;
+public class AnalyticsSensorDataDTO {
+    private String name;
+    private String aggregate;
+    private String date;
+    private Object value;
 
-public class SensorValueMessage {
-    private String deviceId;
-    private SensorDTO sensor;
+    public AnalyticsSensorDataDTO() {}
 
-    public SensorValueMessage(String deviceId, SensorDTO sensor) {
-        this.deviceId = deviceId;
-        this.sensor = sensor;
+    public AnalyticsSensorDataDTO(String name, String aggregate, String date, Object value) {
+        this.name = name;
+        this.aggregate = aggregate;
+        this.date = date;
+        this.value = value;
     }
 }

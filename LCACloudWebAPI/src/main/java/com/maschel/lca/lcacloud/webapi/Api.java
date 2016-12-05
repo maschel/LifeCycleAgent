@@ -36,7 +36,7 @@
 package com.maschel.lca.lcacloud.webapi;
 
 import com.maschel.lca.lcacloud.webapi.gateway.GatewayService;
-import com.maschel.lca.lcacloud.webapi.gateway.message.request.SensorRequestMessage;
+import com.maschel.lca.message.request.SensorRequestMessage;
 
 public class Api {
 

@@ -33,18 +33,32 @@
  *
  */
 
-package com.maschel.lca.lcadevice.agent.message.request;
+package com.maschel.lca.lcacloud.webapi.rest;
 
-import java.util.List;
+import com.google.gson.Gson;
+import com.maschel.lca.lcacloud.webapi.gateway.GatewayService;
+import com.maschel.lca.message.request.SensorRequestMessage;
+import com.maschel.lca.message.response.SensorValueMessage;
 
-public class ActuatorRequestMessage {
-    public String actuator;
-    public List<Object> arguments;
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.core.Response;
 
-    public ActuatorRequestMessage() {}
+@Path("/sensor")
+public class SensorService {
 
-    public ActuatorRequestMessage(String actuator, List<Object> arguments) {
-        this.actuator = actuator;
-        this.arguments = arguments;
+    GatewayService gatewayService = new GatewayService();
+    Gson gson = new Gson();
+
+    @GET
+    @Path("/{deviceId}/{sensorName}")
+    public Response getSensorValue(@PathParam("deviceId") String deviceId,
+                                   @PathParam("sensorName") String sensorName) {
+
+        SensorRequestMessage sensorRequestMessage = new SensorRequestMessage(sensorName);
+        SensorValueMessage message = gatewayService.sensorRequest(deviceId, sensorRequestMessage);
+        return Response.status(200).entity(gson.toJson(message)).build();
     }
+
 }

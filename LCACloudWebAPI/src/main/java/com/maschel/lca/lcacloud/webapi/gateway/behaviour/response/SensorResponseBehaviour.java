@@ -33,14 +33,46 @@
  *
  */
 
-package com.maschel.lca.lcadevice.agent.message.request;
+package com.maschel.lca.lcacloud.webapi.gateway.behaviour.response;
 
-public class SensorRequestMessage {
-    public String sensor;
+import com.google.gson.Gson;
+import com.google.gson.JsonSyntaxException;
+import com.maschel.lca.lcacloud.webapi.gateway.GatewayService;
+import com.maschel.lca.message.response.SensorValueMessage;
+import jade.core.AID;
+import jade.core.Agent;
+import jade.core.behaviours.CyclicBehaviour;
+import jade.core.behaviours.OneShotBehaviour;
+import jade.lang.acl.ACLMessage;
+import jade.lang.acl.MessageTemplate;
 
-    public SensorRequestMessage() {}
+public class SensorResponseBehaviour extends OneShotBehaviour {
 
-    public SensorRequestMessage(String sensor) {
-        this.sensor = sensor;
+    private SensorValueMessage result;
+
+    Gson gson = new Gson();
+
+    public SensorResponseBehaviour() {
+    }
+
+    @Override
+    public void action() {
+        MessageTemplate performativeTemplate = MessageTemplate.MatchPerformative(ACLMessage.INFORM);
+        MessageTemplate ontologyTemplate = MessageTemplate.MatchOntology(GatewayService.SENSOR_ONTOLOGY);
+        MessageTemplate andTemplate = MessageTemplate.and(performativeTemplate, ontologyTemplate);
+
+        ACLMessage msg = myAgent.blockingReceive(andTemplate);
+
+        if (msg != null) {
+            try {
+                result = gson.fromJson(msg.getContent(), SensorValueMessage.class);
+            } catch (JsonSyntaxException ex) {
+                System.out.println("ERROR: Unexpected JSON Object");
+            }
+        }
+    }
+
+    public SensorValueMessage getResult() {
+        return result;
     }
 }

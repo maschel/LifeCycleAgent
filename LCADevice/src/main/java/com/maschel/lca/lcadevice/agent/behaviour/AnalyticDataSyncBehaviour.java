@@ -37,7 +37,7 @@ package com.maschel.lca.lcadevice.agent.behaviour;
 
 import com.google.gson.Gson;
 import com.maschel.lca.lcadevice.agent.message.mapper.AnalyticsSensorDataMapper;
-import com.maschel.lca.lcadevice.agent.message.response.AnalyticsDataMessage;
+import com.maschel.lca.message.response.AnalyticsDataMessage;
 import com.maschel.lca.lcadevice.device.Device;
 import com.maschel.lca.lcadevice.analytics.storage.AnalyticsSensorData;
 import jade.core.Agent;

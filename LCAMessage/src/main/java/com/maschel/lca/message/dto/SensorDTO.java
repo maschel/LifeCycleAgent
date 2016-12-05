@@ -33,7 +33,7 @@
  *
  */
 
-package com.maschel.lca.lcadevice.agent.message.dto;
+package com.maschel.lca.message.dto;
 
 public class SensorDTO {
     private String name;

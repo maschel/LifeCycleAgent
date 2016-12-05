@@ -33,20 +33,32 @@
  *
  */
 
-package com.maschel.lca.lcadevice.agent.message.mapper;
+package com.maschel.lca.message.response;
 
-import com.maschel.lca.message.dto.AnalyticsSensorDataDTO;
-import com.maschel.lca.lcadevice.analytics.storage.AnalyticsSensorData;
-import com.maschel.lca.message.mapper.Mapper;
+import com.maschel.lca.message.dto.SensorDTO;
 
-public class AnalyticsSensorDataMapper extends Mapper<AnalyticsSensorData, AnalyticsSensorDataDTO> {
-    @Override
-    public AnalyticsSensorData DtoToObject(AnalyticsSensorDataDTO analyticsSensorDataDTO) {
-        return modelMapper.map(analyticsSensorDataDTO, AnalyticsSensorData.class);
+public class SensorValueMessage {
+    private String deviceId;
+    private SensorDTO sensor;
+
+    public SensorValueMessage(String deviceId, SensorDTO sensor) {
+        this.deviceId = deviceId;
+        this.sensor = sensor;
     }
 
-    @Override
-    public AnalyticsSensorDataDTO ObjectToDto(AnalyticsSensorData analyticsSensorData) {
-        return modelMapper.map(analyticsSensorData, AnalyticsSensorDataDTO.class);
+    public String getDeviceId() {
+        return deviceId;
+    }
+
+    public void setDeviceId(String deviceId) {
+        this.deviceId = deviceId;
+    }
+
+    public SensorDTO getSensor() {
+        return sensor;
+    }
+
+    public void setSensor(SensorDTO sensor) {
+        this.sensor = sensor;
     }
 }

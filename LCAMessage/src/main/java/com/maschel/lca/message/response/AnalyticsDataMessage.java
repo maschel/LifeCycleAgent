@@ -33,14 +33,19 @@
  *
  */
 
-package com.maschel.lca.lcacloud.webapi.gateway.message.request;
+package com.maschel.lca.message.response;
 
-public class SensorRequestMessage {
-    public String sensor;
 
-    public SensorRequestMessage() {}
+import com.maschel.lca.message.dto.AnalyticsSensorDataDTO;
 
-    public SensorRequestMessage(String sensor) {
-        this.sensor = sensor;
+import java.util.List;
+
+public class AnalyticsDataMessage {
+    public String deviceId;
+    public List<AnalyticsSensorDataDTO> values;
+
+    public AnalyticsDataMessage(String deviceId, List<AnalyticsSensorDataDTO> values) {
+        this.deviceId = deviceId;
+        this.values = values;
     }
 }
