@@ -9,7 +9,6 @@
     </parent>
 
     <artifactId>lcacloudwebapi</artifactId>
-    <version>0.3.3-SNAPSHOT</version>
     <packaging>war</packaging>
 
     <name>LCACloudWebAPI</name>

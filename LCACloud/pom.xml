@@ -9,7 +9,6 @@
     </parent>
 
     <artifactId>lcacloud</artifactId>
-    <version>0.3.3-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <name>LCACloud</name>

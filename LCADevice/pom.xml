@@ -9,7 +9,6 @@
     </parent>
 
     <artifactId>lcadevice</artifactId>
-    <version>0.3.3-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <name>LCADevice</name>
