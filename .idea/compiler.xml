@@ -25,13 +25,15 @@
         <module name="LCACloud" />
         <module name="LCACloudWebAPI" />
         <module name="LCADevice" />
+        <module name="LCAMessage" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="LCACloud" target="1.8" />
       <module name="LCACloudWebAPI" target="1.8" />
       <module name="LCADevice" target="1.8" />
-      <module name="LifeCycleAgent" target="1.5" />
+      <module name="LCAMessage" target="1.8" />
+      <module name="LifeCycleAgent" target="1.8" />
       <module name="untitled" target="1.5" />
     </bytecodeTargetLevel>
   </component>

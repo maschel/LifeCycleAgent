@@ -15,6 +15,91 @@
         <module>LCADevice</module>
         <module>LCACloud</module>
         <module>LCACloudWebAPI</module>
+        <module>LCAMessage</module>
     </modules>
+
+    <licenses>
+        <license>
+            <name>MIT License</name>
+            <url>http://www.opensource.org/licenses/mit-license.php</url>
+        </license>
+    </licenses>
+
+    <developers>
+        <developer>
+            <name>Geoffrey Mastenbroek</name>
+            <email>geoffrey.mastenbroek@student.hu.nl</email>
+            <organization>University of Applied Sciences Utrecht</organization>
+            <organizationUrl>https://www.hu.nl</organizationUrl>
+        </developer>
+        <developer>
+            <name>Feiko Wielsma</name>
+            <email>feiko.wielsma@student.hu.nl</email>
+            <organization>University of Applied Sciences Utrecht</organization>
+            <organizationUrl>https://www.hu.nl</organizationUrl>
+        </developer>
+        <developer>
+            <name>Robbin van den Berg</name>
+            <email>robbin.vandenberg@student.hu.nl</email>
+            <organization>University of Applied Sciences Utrecht</organization>
+            <organizationUrl>https://www.hu.nl</organizationUrl>
+        </developer>
+        <developer>
+            <name>Arnoud den Haring</name>
+            <email>arnoud.denharing@student.hu.nl</email>
+            <organization>University of Applied Sciences Utrecht</organization>
+            <organizationUrl>https://www.hu.nl</organizationUrl>
+        </developer>
+    </developers>
+
+    <scm>
+        <connection>scm:git:git://github.com/maschel/LifeCycleAgent.git</connection>
+        <developerConnection>scm:git:ssh://github.com:maschel/LifeCycleAgent.git</developerConnection>
+        <url>https://github.com/maschel/LifeCycleAgent/tree/master</url>
+    </scm>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+
+    <build>
+        <plugins>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.6.0</version>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                </configuration>
+            </plugin>
+
+        </plugins>
+    </build>
+
+    <repositories>
+        <repository>
+            <id>tilab</id>
+            <url>http://jade.tilab.com/maven/</url>
+        </repository>
+    </repositories>
+
+    <dependencies>
+
+        <dependency>
+            <groupId>com.tilab.jade</groupId>
+            <artifactId>jade</artifactId>
+            <version>4.4.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>3.8.1</version>
+            <scope>test</scope>
+        </dependency>
+
+    </dependencies>
 
 </project>

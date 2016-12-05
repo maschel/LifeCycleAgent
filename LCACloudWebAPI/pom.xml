@@ -9,99 +9,25 @@
     </parent>
 
     <artifactId>lcacloudwebapi</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.3.3-SNAPSHOT</version>
     <packaging>war</packaging>
 
     <name>LCACloudWebAPI</name>
     <description>LCACloudWebAPI is a project that can be used to run a REST API with the LifeCycleAgent
         cloud platform as backend.</description>
-    <url>https://github.com/maschel/LCACloudWebAPI</url>
-
-    <licenses>
-        <license>
-            <name>MIT License</name>
-            <url>http://www.opensource.org/licenses/mit-license.php</url>
-        </license>
-    </licenses>
-
-    <developers>
-        <developer>
-            <name>Geoffrey Mastenbroek</name>
-            <email>geoffrey.mastenbroek@student.hu.nl</email>
-            <organization>University of Applied Sciences Utrecht</organization>
-            <organizationUrl>https://www.hu.nl</organizationUrl>
-        </developer>
-        <developer>
-            <name>Feiko Wielsma</name>
-            <email>feiko.wielsma@student.hu.nl</email>
-            <organization>University of Applied Sciences Utrecht</organization>
-            <organizationUrl>https://www.hu.nl</organizationUrl>
-        </developer>
-        <developer>
-            <name>Robbin van den Berg</name>
-            <email>robbin.vandenberg@student.hu.nl</email>
-            <organization>University of Applied Sciences Utrecht</organization>
-            <organizationUrl>https://www.hu.nl</organizationUrl>
-        </developer>
-        <developer>
-            <name>Arnoud den Haring</name>
-            <email>arnoud.denharing@student.hu.nl</email>
-            <organization>University of Applied Sciences Utrecht</organization>
-            <organizationUrl>https://www.hu.nl</organizationUrl>
-        </developer>
-    </developers>
-
-    <scm>
-        <connection>scm:git:git://github.com/maschel/LCACloudWebAPI.git</connection>
-        <developerConnection>scm:git:ssh://github.com:maschel/LCACloudWebAPI.git</developerConnection>
-        <url>https://github.com/maschel/LCACloudWebAPI/tree/master</url>
-    </scm>
+    <url>https://github.com/maschel/LifeCycleAgent</url>
 
     <build>
         <finalName>lcacloudwebapi</finalName>
-
-        <plugins>
-
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.6.0</version>
-                <configuration>
-                    <source>1.8</source>
-                    <target>1.8</target>
-                </configuration>
-            </plugin>
-
-        </plugins>
     </build>
 
-    <repositories>
-        <repository>
-            <id>tilab</id>
-            <url>http://jade.tilab.com/maven/</url>
-        </repository>
-    </repositories>
-
     <dependencies>
-
-        <dependency>
-            <groupId>com.tilab.jade</groupId>
-            <artifactId>jade</artifactId>
-            <version>4.4.0</version>
-        </dependency>
 
         <dependency>
             <groupId>com.google.code.gson</groupId>
             <artifactId>gson</artifactId>
             <version>2.8.0</version>
             <scope>compile</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>3.8.1</version>
-            <scope>test</scope>
         </dependency>
 
     </dependencies>
