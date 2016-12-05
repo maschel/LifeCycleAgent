@@ -37,11 +37,11 @@ package com.maschel.lca.lcadevice.agent.behaviour;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
-import com.maschel.lca.message.request.SensorRequestMessage;
-import com.maschel.lca.message.response.SensorValueMessage;
+import com.maschel.lca.lcadevice.agent.message.mapper.SensorMapper;
 import com.maschel.lca.lcadevice.device.Device;
 import com.maschel.lca.lcadevice.device.sensor.Sensor;
-import com.maschel.lca.lcadevice.agent.message.mapper.SensorMapper;
+import com.maschel.lca.message.request.SensorRequestMessage;
+import com.maschel.lca.message.response.SensorValueMessage;
 import jade.core.Agent;
 import jade.core.behaviours.OneShotBehaviour;
 import jade.lang.acl.ACLMessage;

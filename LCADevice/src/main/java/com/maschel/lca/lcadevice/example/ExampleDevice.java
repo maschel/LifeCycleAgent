@@ -36,11 +36,11 @@
 package com.maschel.lca.lcadevice.example;
 
 import com.maschel.lca.lcadevice.analytics.AggregateOperator;
+import com.maschel.lca.lcadevice.analytics.Analytic;
 import com.maschel.lca.lcadevice.analytics.TimeRange;
 import com.maschel.lca.lcadevice.device.Device;
 import com.maschel.lca.lcadevice.device.actuator.Actuator;
 import com.maschel.lca.lcadevice.device.sensor.Sensor;
-import com.maschel.lca.lcadevice.analytics.Analytic;
 
 import java.util.Random;
 

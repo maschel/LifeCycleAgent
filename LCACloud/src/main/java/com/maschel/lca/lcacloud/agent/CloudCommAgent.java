@@ -36,8 +36,8 @@
 package com.maschel.lca.lcacloud.agent;
 
 import com.maschel.lca.lcacloud.agent.device.CloudDeviceAgent;
-import jade.core.Agent;
 import jade.core.AID;
+import jade.core.Agent;
 import jade.core.behaviours.CyclicBehaviour;
 import jade.core.behaviours.OneShotBehaviour;
 import jade.domain.DFService;
@@ -46,9 +46,9 @@ import jade.domain.FIPAAgentManagement.Property;
 import jade.domain.FIPAAgentManagement.ServiceDescription;
 import jade.domain.FIPAException;
 import jade.lang.acl.ACLMessage;
+import jade.util.leap.Iterator;
 import jade.wrapper.AgentContainer;
 import jade.wrapper.AgentController;
-import jade.util.leap.Iterator;
 
 /**
  * Agent class to forward messages between a local model agent and a cloud agent. Needed to perform

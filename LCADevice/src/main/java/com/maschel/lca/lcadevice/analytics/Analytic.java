@@ -35,9 +35,9 @@
 
 package com.maschel.lca.lcadevice.analytics;
 
+import com.maschel.lca.lcadevice.analytics.storage.AnalyticsStorage;
 import com.maschel.lca.lcadevice.device.sensor.Sensor;
 import com.maschel.lca.lcadevice.device.sensor.SensorObserver;
-import com.maschel.lca.lcadevice.analytics.storage.AnalyticsStorage;
 
 public class Analytic implements SensorObserver {
 

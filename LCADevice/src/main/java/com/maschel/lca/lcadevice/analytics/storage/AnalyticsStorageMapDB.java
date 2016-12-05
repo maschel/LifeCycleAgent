@@ -36,10 +36,15 @@
 package com.maschel.lca.lcadevice.analytics.storage;
 
 import com.maschel.lca.lcadevice.analytics.Analytic;
-import org.mapdb.*;
+import org.mapdb.DB;
+import org.mapdb.DBMaker;
+import org.mapdb.HTreeMap;
+import org.mapdb.Serializer;
 import org.mapdb.serializer.SerializerArray;
 
-import java.util.*;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 public class AnalyticsStorageMapDB implements AnalyticsStorage {

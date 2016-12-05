@@ -35,8 +35,8 @@
 
 package com.maschel.lca.lcadevice.device.sensor;
 
-import com.maschel.lca.lcadevice.device.Device;
 import com.maschel.lca.lcadevice.device.Component;
+import com.maschel.lca.lcadevice.device.Device;
 
 import java.util.ArrayList;
 import java.util.List;

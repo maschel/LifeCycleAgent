@@ -35,8 +35,8 @@
 
 package com.maschel.lca.lcadevice.agent.message.mapper;
 
-import com.maschel.lca.message.dto.SensorDTO;
 import com.maschel.lca.lcadevice.device.sensor.Sensor;
+import com.maschel.lca.message.dto.SensorDTO;
 import com.maschel.lca.message.mapper.Mapper;
 
 public class SensorMapper extends Mapper<Sensor, SensorDTO> {

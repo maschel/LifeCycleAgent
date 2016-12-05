@@ -37,9 +37,9 @@ package com.maschel.lca.lcadevice.agent.behaviour;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
-import com.maschel.lca.message.request.ActuatorRequestMessage;
 import com.maschel.lca.lcadevice.device.Device;
 import com.maschel.lca.lcadevice.device.actuator.Actuator;
+import com.maschel.lca.message.request.ActuatorRequestMessage;
 import jade.core.Agent;
 import jade.core.behaviours.OneShotBehaviour;
 import jade.lang.acl.ACLMessage;

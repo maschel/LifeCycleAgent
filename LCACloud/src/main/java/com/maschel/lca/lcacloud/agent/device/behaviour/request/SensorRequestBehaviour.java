@@ -35,9 +35,6 @@
 
 package com.maschel.lca.lcacloud.agent.device.behaviour.request;
 
-import com.google.gson.Gson;
-import com.maschel.lca.lcacloud.agent.device.CloudDeviceAgent;
-import com.maschel.lca.lcacloud.agent.device.message.request.SensorRequestMessage;
 import jade.core.AID;
 import jade.core.Agent;
 import jade.core.behaviours.OneShotBehaviour;
@@ -46,22 +43,19 @@ import jade.lang.acl.ACLMessage;
 public class SensorRequestBehaviour extends OneShotBehaviour {
 
     private AID remoteDeviceAID;
-    private SensorRequestMessage sensorRequestMessage;
+    private ACLMessage message;
 
-    private Gson gson = new Gson();
-
-    public SensorRequestBehaviour(Agent agent, AID remoteDeviceAID, SensorRequestMessage sensorRequestMessage) {
+    public SensorRequestBehaviour(Agent agent, AID remoteDeviceAID, ACLMessage message) {
         super(agent);
         this.remoteDeviceAID = remoteDeviceAID;
-        this.sensorRequestMessage = sensorRequestMessage;
+        this.message = message;
     }
 
     @Override
     public void action() {
-        ACLMessage msg = new ACLMessage(ACLMessage.REQUEST);
-        msg.addReceiver(remoteDeviceAID);
-        msg.setOntology(CloudDeviceAgent.SENSOR_ONTOLOGY);
-        msg.setContent(gson.toJson(sensorRequestMessage));
-        myAgent.send(msg);
+        message.setSender(message.getSender());     // Use original sender
+        message.removeReceiver(myAgent.getAID());   // Remove this agent as receiver
+        message.addReceiver(remoteDeviceAID);       // Send to remote device
+        myAgent.send(message);
     }
 }

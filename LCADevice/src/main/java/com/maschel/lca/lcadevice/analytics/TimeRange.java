@@ -36,7 +36,7 @@
 package com.maschel.lca.lcadevice.analytics;
 
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.Date;
 
 public enum TimeRange {
 

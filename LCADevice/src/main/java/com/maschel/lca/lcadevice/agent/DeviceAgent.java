@@ -35,10 +35,10 @@
 
 package com.maschel.lca.lcadevice.agent;
 
-import com.maschel.lca.lcadevice.device.Device;
 import com.maschel.lca.lcadevice.agent.behaviour.ActuatorBehaviour;
 import com.maschel.lca.lcadevice.agent.behaviour.AnalyticDataSyncBehaviour;
 import com.maschel.lca.lcadevice.agent.behaviour.SensorBehaviour;
+import com.maschel.lca.lcadevice.device.Device;
 import jade.core.Agent;
 import jade.core.behaviours.CyclicBehaviour;
 import jade.core.behaviours.TickerBehaviour;

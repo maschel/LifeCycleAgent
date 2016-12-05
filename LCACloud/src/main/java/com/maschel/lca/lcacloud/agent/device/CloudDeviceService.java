@@ -36,9 +36,6 @@
 package com.maschel.lca.lcacloud.agent.device;
 
 
-import java.util.HashMap;
-import java.util.Map;
-
 public class CloudDeviceService {
 
 //    private static Map<String, CloudDeviceService> deviceAgents = new HashMap<>();

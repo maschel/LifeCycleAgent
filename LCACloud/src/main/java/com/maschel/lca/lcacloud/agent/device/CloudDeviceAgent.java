@@ -35,8 +35,7 @@
 
 package com.maschel.lca.lcacloud.agent.device;
 
-import com.maschel.lca.lcacloud.agent.device.behaviour.request.SensorRequestPropogateBehaviour;
-import com.maschel.lca.lcacloud.agent.device.behaviour.response.ActuatorResponseBehaviour;
+import com.maschel.lca.lcacloud.agent.device.behaviour.request.SensorRequestBehaviour;
 import com.maschel.lca.lcacloud.model.Device;
 import jade.core.AID;
 import jade.core.Agent;
@@ -84,10 +83,7 @@ public class CloudDeviceAgent extends Agent {
             if(msg != null) {
                 switch(msg.getOntology()) {
                     case SENSOR_ONTOLOGY:
-                        myAgent.addBehaviour(new SensorRequestPropogateBehaviour(myAgent, remoteDeviceAID, msg));
-                        break;
-                    case ACTUATOR_ONTOLOGY:
-                        myAgent.addBehaviour(new ActuatorResponseBehaviour(myAgent, msg));
+                        myAgent.addBehaviour(new SensorRequestBehaviour(myAgent, remoteDeviceAID, msg));
                         break;
                 }
             }

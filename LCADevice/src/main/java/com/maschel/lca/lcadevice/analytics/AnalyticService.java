@@ -35,9 +35,9 @@
 
 package com.maschel.lca.lcadevice.analytics;
 
-import com.maschel.lca.lcadevice.analytics.storage.AnalyticsStorageMapDB;
 import com.maschel.lca.lcadevice.analytics.storage.AnalyticsSensorData;
 import com.maschel.lca.lcadevice.analytics.storage.AnalyticsStorage;
+import com.maschel.lca.lcadevice.analytics.storage.AnalyticsStorageMapDB;
 
 import java.util.ArrayList;
 import java.util.List;

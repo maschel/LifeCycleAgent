@@ -35,8 +35,8 @@
 
 package com.maschel.lca.lcadevice.agent.message.mapper;
 
-import com.maschel.lca.message.dto.AnalyticsSensorDataDTO;
 import com.maschel.lca.lcadevice.analytics.storage.AnalyticsSensorData;
+import com.maschel.lca.message.dto.AnalyticsSensorDataDTO;
 import com.maschel.lca.message.mapper.Mapper;
 
 public class AnalyticsSensorDataMapper extends Mapper<AnalyticsSensorData, AnalyticsSensorDataDTO> {
