@@ -10,7 +10,7 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="module" module-name="LCAMessage" />
+    <orderEntry type="library" name="Maven: com.maschel:LCAMessage:0.3.3-SNAPSHOT" level="project" />
     <orderEntry type="library" name="Maven: org.mapdb:mapdb:3.0.2" level="project" />
     <orderEntry type="library" name="Maven: org.jetbrains.kotlin:kotlin-stdlib:1.0.2" level="project" />
     <orderEntry type="library" name="Maven: org.jetbrains.kotlin:kotlin-runtime:1.0.2" level="project" />
