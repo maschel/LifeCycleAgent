@@ -33,33 +33,29 @@
  *
  */
 
-package com.maschel.lca.lcacloud.agent.device;
+package com.maschel.lca.lcacloud.agent.device.behaviour;
 
+import jade.core.AID;
+import jade.core.Agent;
+import jade.core.behaviours.OneShotBehaviour;
+import jade.lang.acl.ACLMessage;
 
-public class CloudDeviceService {
+public class DeviceMessageForwardBehaviour extends OneShotBehaviour {
 
-//    private static Map<String, CloudDeviceService> deviceAgents = new HashMap<>();
-//
-//    private CloudDeviceAgent cloudDeviceAgent;
-//
-//    private CloudDeviceService(CloudDeviceAgent cloudDeviceAgent) {
-//        this.cloudDeviceAgent = cloudDeviceAgent;
-//    }
-//
-//    public static void registerDeviceAgent(String deviceId, CloudDeviceAgent cloudDeviceAgent) {
-//        deviceAgents.put(deviceId, new CloudDeviceService(cloudDeviceAgent));
-//    }
-//
-//    public static void deregisterDeviceAgent(String deviceId) {
-//        deviceAgents.remove(deviceId);
-//    }
-//
-//    public static CloudDeviceService getService(String deviceId) {
-//        return deviceAgents.get(deviceId);
-//    }
-//
-//    public void sendSensorRequestMessage(AsyncDeviceRequest<SensorRequestMessage, SensorValueMessage> request) {
-//        cloudDeviceAgent.sendSensorRequestMessage(request);
-//    }
+    private AID remoteDeviceAID;
+    private ACLMessage message;
 
+    public DeviceMessageForwardBehaviour(Agent agent, AID remoteDeviceAID, ACLMessage message) {
+        super(agent);
+        this.remoteDeviceAID = remoteDeviceAID;
+        this.message = message;
+    }
+
+    @Override
+    public void action() {
+        message.setSender(message.getSender());     // Use original sender
+        message.removeReceiver(myAgent.getAID());   // Remove this agent as receiver
+        message.addReceiver(remoteDeviceAID);       // Send to remote device
+        myAgent.send(message);
+    }
 }
