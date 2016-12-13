@@ -35,40 +35,36 @@
 
 package com.maschel.lca.lcacloud.webapi.gateway.behaviour.response;
 
-import com.google.gson.Gson;
-import com.google.gson.JsonSyntaxException;
 import com.maschel.lca.lcacloud.webapi.gateway.JadeGatewayService;
-import com.maschel.lca.message.response.SensorValueMessage;
 import jade.core.behaviours.OneShotBehaviour;
 import jade.lang.acl.ACLMessage;
 import jade.lang.acl.MessageTemplate;
 
-public class SensorResponseBehaviour extends OneShotBehaviour {
+public class ActuatorResponseBehaviour extends OneShotBehaviour {
 
-    private SensorValueMessage result;
-
-    Gson gson = new Gson();
-
-    public SensorResponseBehaviour() {
-    }
+    private Boolean didSucceed;
 
     @Override
     public void action() {
-        MessageTemplate ontologyTemplate = MessageTemplate.MatchOntology(JadeGatewayService.SENSOR_ONTOLOGY);
+        MessageTemplate ontologyTemplate = MessageTemplate.MatchOntology(JadeGatewayService.ACTUATOR_ONTOLOGY);
+
         ACLMessage msg = myAgent.blockingReceive(ontologyTemplate);
 
         if (msg != null) {
-            if (msg.getPerformative() == ACLMessage.INFORM) {
-                try {
-                    result = gson.fromJson(msg.getContent(), SensorValueMessage.class);
-                } catch (JsonSyntaxException ex) {
-                    System.out.println("ERROR: Unexpected JSON Object");
-                }
+            switch (msg.getPerformative()) {
+                case ACLMessage.AGREE:
+                    didSucceed = true;
+                    break;
+                case ACLMessage.FAILURE:
+                    didSucceed = false;
+                    break;
+                default:
+                    break;
             }
         }
     }
 
-    public SensorValueMessage getResult() {
-        return result;
+    public Boolean getDidSucceed() {
+        return didSucceed;
     }
 }

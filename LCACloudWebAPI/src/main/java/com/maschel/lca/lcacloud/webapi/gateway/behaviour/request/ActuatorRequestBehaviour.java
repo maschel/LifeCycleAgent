@@ -33,42 +33,34 @@
  *
  */
 
-package com.maschel.lca.lcacloud.webapi.gateway.behaviour.response;
+package com.maschel.lca.lcacloud.webapi.gateway.behaviour.request;
 
 import com.google.gson.Gson;
-import com.google.gson.JsonSyntaxException;
 import com.maschel.lca.lcacloud.webapi.gateway.JadeGatewayService;
-import com.maschel.lca.message.response.SensorValueMessage;
+import com.maschel.lca.message.request.ActuatorRequestMessage;
+import jade.core.AID;
 import jade.core.behaviours.OneShotBehaviour;
 import jade.lang.acl.ACLMessage;
-import jade.lang.acl.MessageTemplate;
 
-public class SensorResponseBehaviour extends OneShotBehaviour {
+public class ActuatorRequestBehaviour extends OneShotBehaviour {
 
-    private SensorValueMessage result;
+    private String deviceId;
+    private ActuatorRequestMessage requestMessage;
 
-    Gson gson = new Gson();
+    private Gson gson = new Gson();
 
-    public SensorResponseBehaviour() {
+    public ActuatorRequestBehaviour(String deviceId, ActuatorRequestMessage requestMessage) {
+        this.deviceId = deviceId;
+        this.requestMessage = requestMessage;
     }
 
     @Override
     public void action() {
-        MessageTemplate ontologyTemplate = MessageTemplate.MatchOntology(JadeGatewayService.SENSOR_ONTOLOGY);
-        ACLMessage msg = myAgent.blockingReceive(ontologyTemplate);
-
-        if (msg != null) {
-            if (msg.getPerformative() == ACLMessage.INFORM) {
-                try {
-                    result = gson.fromJson(msg.getContent(), SensorValueMessage.class);
-                } catch (JsonSyntaxException ex) {
-                    System.out.println("ERROR: Unexpected JSON Object");
-                }
-            }
-        }
-    }
-
-    public SensorValueMessage getResult() {
-        return result;
+        ACLMessage msg = new ACLMessage(ACLMessage.REQUEST);
+        String localName = JadeGatewayService.CLOUD_AGENT_DEVICE_PREFIX + deviceId;
+        msg.addReceiver(new AID(localName, AID.ISLOCALNAME));
+        msg.setOntology(JadeGatewayService.ACTUATOR_ONTOLOGY);
+        msg.setContent(gson.toJson(requestMessage));
+        myAgent.send(msg);
     }
 }

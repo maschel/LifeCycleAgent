@@ -36,49 +36,49 @@
 package com.maschel.lca.lcacloud.webapi.rest;
 
 import com.maschel.lca.lcacloud.webapi.gateway.JadeGatewayService;
-import com.maschel.lca.message.request.SensorRequestMessage;
-import com.maschel.lca.message.response.SensorValueMessage;
+import com.maschel.lca.message.request.ActuatorRequestMessage;
+import com.sun.org.apache.xpath.internal.operations.Bool;
 
-import javax.ws.rs.GET;
+import javax.ws.rs.Consumes;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.container.AsyncResponse;
 import javax.ws.rs.container.Suspended;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-@Path("/sensor")
-public class SensorService {
+@Path("/actuator")
+public class ActuatorService {
 
     JadeGatewayService jadeGatewayService = new JadeGatewayService();
 
-    @GET
-    @Path("/value")
-    @Produces(MediaType.APPLICATION_JSON)
-    public void getSensorValue(
+    @POST
+    @Path("/actuate")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public void actuate(
             @Suspended AsyncResponse asyncResponse,
             @QueryParam("deviceId") String deviceId,
-            @QueryParam("sensorName") String sensorName) {
+            ActuatorRequestMessage message) {
 
         new Thread(new Runnable() {
             @Override
             public void run() {
+                Boolean success = getActuateResult();
                 Response response;
-                SensorValueMessage sensorValueMessage = getSensorResult();
-                if (sensorValueMessage != null) {
-                    response = Response.status(Response.Status.OK).entity(getSensorResult()).build();
-                } else {
+                if (success == null) {
                     response = Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
+                } else if (!success) {
+                    response = Response.status(Response.Status.SERVICE_UNAVAILABLE).build();
+                } else {
+                    response = Response.status(Response.Status.OK).build();
                 }
                 asyncResponse.resume(response);
             }
 
-            private SensorValueMessage getSensorResult() {
-                SensorRequestMessage sensorRequestMessage = new SensorRequestMessage(sensorName);
-                return jadeGatewayService.sensorRequest(deviceId, sensorRequestMessage);
+            private Boolean getActuateResult() {
+                return jadeGatewayService.actuatorRequest(deviceId, message);
             }
         }).start();
     }
-
 }

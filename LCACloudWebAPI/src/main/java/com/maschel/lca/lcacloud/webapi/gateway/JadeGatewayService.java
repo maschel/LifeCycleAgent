@@ -35,8 +35,11 @@
 
 package com.maschel.lca.lcacloud.webapi.gateway;
 
+import com.maschel.lca.lcacloud.webapi.gateway.behaviour.request.ActuatorRequestBehaviour;
 import com.maschel.lca.lcacloud.webapi.gateway.behaviour.request.SensorRequestBehaviour;
+import com.maschel.lca.lcacloud.webapi.gateway.behaviour.response.ActuatorResponseBehaviour;
 import com.maschel.lca.lcacloud.webapi.gateway.behaviour.response.SensorResponseBehaviour;
+import com.maschel.lca.message.request.ActuatorRequestMessage;
 import com.maschel.lca.message.request.SensorRequestMessage;
 import com.maschel.lca.message.response.SensorValueMessage;
 import jade.core.behaviours.SequentialBehaviour;
@@ -47,11 +50,16 @@ import jade.wrapper.gateway.JadeGateway;
 public class JadeGatewayService {
 
     public static final String SENSOR_ONTOLOGY = "sensor";
+    public static final String ACTUATOR_ONTOLOGY = "actuator";
     public static final String CLOUD_AGENT_DEVICE_PREFIX = "Cloud";
 
-    public SensorValueMessage sensorRequest(String deviceId, SensorRequestMessage message) {
+    private static final long REQUEST_TIMEOUT = 1000;
 
-        connectGateway();
+    public JadeGatewayService() {
+        JadeGateway.init(null, new Properties());
+    }
+
+    public SensorValueMessage sensorRequest(String deviceId, SensorRequestMessage message) {
 
         SensorRequestBehaviour requestBehaviour = new SensorRequestBehaviour(deviceId, message);
         SensorResponseBehaviour responseBehaviour = new SensorResponseBehaviour();
@@ -59,19 +67,27 @@ public class JadeGatewayService {
         sequence.addSubBehaviour(requestBehaviour);
         sequence.addSubBehaviour(responseBehaviour);
         try {
-            JadeGateway.execute(sequence);
+            JadeGateway.execute(sequence, REQUEST_TIMEOUT);
             return responseBehaviour.getResult();
-        } catch (ControllerException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
+        } catch (ControllerException | InterruptedException e) {
             e.printStackTrace();
         }
         return null;
     }
 
-    private void connectGateway() {
-        if (!JadeGateway.isGatewayActive()) {
-            JadeGateway.init(null, new Properties());
+    public Boolean actuatorRequest(String deviceId, ActuatorRequestMessage message) {
+
+        ActuatorRequestBehaviour requestBehaviour = new ActuatorRequestBehaviour(deviceId, message);
+        ActuatorResponseBehaviour responseBehaviour = new ActuatorResponseBehaviour();
+        SequentialBehaviour sequence = new SequentialBehaviour();
+        sequence.addSubBehaviour(requestBehaviour);
+        sequence.addSubBehaviour(responseBehaviour);
+        try {
+            JadeGateway.execute(sequence, REQUEST_TIMEOUT);
+            return responseBehaviour.getDidSucceed();
+        } catch (ControllerException | InterruptedException e) {
+            e.printStackTrace();
         }
+        return null;
     }
 }
