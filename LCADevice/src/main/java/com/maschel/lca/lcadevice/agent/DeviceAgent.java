@@ -37,6 +37,7 @@ package com.maschel.lca.lcadevice.agent;
 
 import com.maschel.lca.lcadevice.agent.behaviour.ActuatorBehaviour;
 import com.maschel.lca.lcadevice.agent.behaviour.AnalyticDataSyncBehaviour;
+import com.maschel.lca.lcadevice.agent.behaviour.CommBehaviour;
 import com.maschel.lca.lcadevice.agent.behaviour.SensorBehaviour;
 import com.maschel.lca.lcadevice.device.Device;
 import jade.core.Agent;
@@ -87,6 +88,9 @@ public class DeviceAgent extends Agent {
             this.doDelete();
             return;
         }
+
+        // Connect to the Cloud platform
+        addBehaviour(new CommBehaviour(agentDevice.getId()));
 
         if (agentDevice.getSensorUpdateInterval() != 0) {
             addBehaviour(new TickerBehaviour(this, agentDevice.getSensorUpdateInterval()) {

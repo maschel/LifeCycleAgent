@@ -8,7 +8,7 @@
     </extension>
     <option name="MAIN_CLASS_NAME" value="jade.Boot" />
     <option name="VM_PARAMETERS" value="" />
-    <option name="PROGRAM_PARAMETERS" value="-gui -local-port 1100 -platform-id DevicePlatform -agents TestDevice:com.maschel.lca.lcadevice.agent.DeviceAgent(com.maschel.lca.lcadevice.example.ExampleDevice)" />
+    <option name="PROGRAM_PARAMETERS" value="-gui -local-port 1100 -platform-id DevicePlatform -agents TestDevice-0:com.maschel.lca.lcadevice.agent.DeviceAgent(com.maschel.lca.lcadevice.example.ExampleDevice)" />
     <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$" />
     <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
     <option name="ALTERNATIVE_JRE_PATH" />
