@@ -62,6 +62,6 @@ public class ConfigurationHelper {
     }
 
     public static String getCloudPlatformAddress() {
-        return properties.getProperty("cloud_platform_address", "http://macbook-pro:7778/acc");
+        return properties.getProperty("cloud_platform_address", "http://localhost:7778/acc");
     }
 }

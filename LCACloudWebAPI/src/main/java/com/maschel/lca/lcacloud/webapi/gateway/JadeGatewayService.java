@@ -53,7 +53,7 @@ public class JadeGatewayService {
     public static final String ACTUATOR_ONTOLOGY = "actuator";
     public static final String CLOUD_AGENT_DEVICE_PREFIX = "Cloud";
 
-    private static final long REQUEST_TIMEOUT = 1000;
+    private static final long REQUEST_TIMEOUT = 5000;
 
     public JadeGatewayService() {
         JadeGateway.init(null, new Properties());

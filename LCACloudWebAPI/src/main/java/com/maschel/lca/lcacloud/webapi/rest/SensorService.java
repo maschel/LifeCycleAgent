@@ -67,7 +67,7 @@ public class SensorService {
                 Response response;
                 SensorValueMessage sensorValueMessage = getSensorResult();
                 if (sensorValueMessage != null) {
-                    response = Response.status(Response.Status.OK).entity(getSensorResult()).build();
+                    response = Response.status(Response.Status.OK).entity(sensorValueMessage).build();
                 } else {
                     response = Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
                 }
