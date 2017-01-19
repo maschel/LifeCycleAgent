@@ -48,20 +48,23 @@ public class ExampleDevice extends Device {
 
     private static int deviceCount = 0;
 
+    private static final long SENSOR_UPDATE_INTERVAL = 10000;
+
     public ExampleDevice() {
-        super("TestDevice-"+deviceCount, 10000, 50);
+        super("TestDevice-"+deviceCount, 0, SENSOR_UPDATE_INTERVAL);
         deviceCount++;
     }
 
     @Override
     public void setup() {
 
-        Sensor testSensor = new Sensor("TestSensor") {
+        Sensor testSensor = new Sensor("TestSensor", SENSOR_UPDATE_INTERVAL) {
             @Override
             public Double readSensor() {
                 double start = 0;
                 double end = 100;
                 double random = new Random().nextDouble();
+                System.out.println("TestSensor: " + random);
                 return start + (random * (end - start));
             }
         };

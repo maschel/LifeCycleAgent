@@ -57,14 +57,6 @@ public abstract class Sensor<T> implements ObservableSensor {
     private List<SensorObserver> observers = new ArrayList<>();
 
     /**
-     * Default Sensor constructor.
-     * @param name Name of the sensor.
-     */
-    public Sensor(String name) {
-        this.name = name;
-    }
-
-    /**
      * Sensor constructor that sets a minimum sensor update interval.
      * @param name Name of the sensor.
      * @param minUpdateIntervalMillis The minimal sensor update interval.
