@@ -48,10 +48,11 @@ public class ExampleDevice extends Device {
 
     private static int deviceCount = 0;
 
+    private static final long MIN_ANALYTICS_SYNC_INTERVAL = 10000;
     private static final long SENSOR_UPDATE_INTERVAL = 10000;
 
     public ExampleDevice() {
-        super("TestDevice-"+deviceCount, 0, SENSOR_UPDATE_INTERVAL);
+        super("TestDevice-"+deviceCount, MIN_ANALYTICS_SYNC_INTERVAL, SENSOR_UPDATE_INTERVAL);
         deviceCount++;
     }
 

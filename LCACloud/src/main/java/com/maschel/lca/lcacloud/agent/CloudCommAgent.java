@@ -109,20 +109,20 @@ public class CloudCommAgent extends Agent {
             ServiceDescription serviceDescription  = new ServiceDescription();
             serviceDescription.setType(DEVICE_SERVICE_DESCRIPTION);
             serviceDescription.setName(deviceId);
-            serviceDescription.addProperties(new Property(DEVICE_REMOTE_AID_PROPERTY, message.getSender()));
 
             DFAgentDescription dfAgentDescription = new DFAgentDescription();
             dfAgentDescription.addServices(serviceDescription);
 
-            AID agentIdentifier = getService(dfAgentDescription, deviceId);
+            AID agentIdentifier = getService(dfAgentDescription, message.getSender(), deviceId);
 
             // Forward message
             if(agentIdentifier != null) {
-                message.setSender(message.getSender()); // Use the original sender
-                message.addReceiver(agentIdentifier);   // The CloudDeviceAgent
-                message.removeReceiver(getAID());       // Remove the CLoudCommAgent as receiver
-
-                send(message);
+                ACLMessage fwdMessage = new ACLMessage(message.getPerformative());
+                fwdMessage.setSender(message.getSender());
+                fwdMessage.addReceiver(agentIdentifier);
+                fwdMessage.setOntology(message.getOntology());
+                fwdMessage.setContent(message.getContent());
+                send(fwdMessage);
             } else {
                 System.out.println("ERROR: Could not find the AID for the given deviceID");
             }
@@ -134,28 +134,23 @@ public class CloudCommAgent extends Agent {
 
     /**
      * Register a new CloudDeviceAgent in the DF
-     * @param dfAgentDescription The Agent description
+     * @param dfAgentDescription The Agent Description
+     * @param remoteDeviceAID The Remote Agent AID
      * @param deviceId Device id
      */
-    protected void register(DFAgentDescription dfAgentDescription, String deviceId)
+    protected void register(DFAgentDescription dfAgentDescription, AID remoteDeviceAID, String deviceId)
     {
         String cloudDeviceId = CLOUD_AGENT_DEVICE_PREFIX + deviceId;
 
         try {
-            AID remoteDeviceAID = getRemoteDeviceAID(dfAgentDescription);
-            if (remoteDeviceAID == null) {
-                throw new Exception("ERROR: device remote AID property could not be found.");
-            }
-
             CloudDeviceAgent cloudDeviceAgent = new CloudDeviceAgent();
             cloudDeviceAgent.setArguments(new Object[] { deviceId, remoteDeviceAID });
-
-            dfAgentDescription.setName(cloudDeviceAgent.getAID());
-
             AgentContainer agentContainer = getContainerController();
             AgentController agentController = agentContainer.acceptNewAgent(cloudDeviceId, cloudDeviceAgent);
             agentController.start();
-            DFService.register(cloudDeviceAgent, dfAgentDescription);
+
+            dfAgentDescription.setName(cloudDeviceAgent.getAID());
+            DFService.register(this, dfAgentDescription);
 
         } catch (Exception e) {
             System.out.println("ERROR: Failed to start agent: " + cloudDeviceId + ". " + e.getMessage());
@@ -164,11 +159,12 @@ public class CloudCommAgent extends Agent {
 
     /**
      * Get the CloudDeviceAgent AID related to a given agent description
-     * @param dfAgentDescription The Agent description
+     * @param dfAgentDescription The Agent Description
+     * @param remoteDeviceAID The Remote Agent AID
      * @param deviceId Device id
      * @return AID of the model
      */
-    public AID getService(DFAgentDescription dfAgentDescription, String deviceId)
+    public AID getService(DFAgentDescription dfAgentDescription, AID remoteDeviceAID, String deviceId)
     {
         try
         {
@@ -179,34 +175,14 @@ public class CloudCommAgent extends Agent {
             }
             else {
                 // Agent doesn't exists, so register
-                register(dfAgentDescription, deviceId);
-                return getService(dfAgentDescription, deviceId);
+                register(dfAgentDescription, remoteDeviceAID, deviceId);
+                return getService(dfAgentDescription, remoteDeviceAID, deviceId);
             }
         }
         catch (FIPAException fe) {
             System.out.println("ERROR: Failed to find or register CloudDeviceAgent. " + fe.getMessage());
             return null;
         }
-    }
-
-    /**
-     * Get the remote device AID stored in the DFAgentDescription-ServiceDescription: DEVICE_REMOTE_AID_PROPERTY
-     * @param dfAgentDescription The Agent description
-     * @return AID of the remote device
-     */
-    private AID getRemoteDeviceAID(DFAgentDescription dfAgentDescription) {
-        Iterator serviceDescriptionIterator = dfAgentDescription.getAllServices();
-        while(serviceDescriptionIterator.hasNext()) {
-            ServiceDescription service = (ServiceDescription)serviceDescriptionIterator.next();
-            Iterator propertiesIterator = service.getAllProperties();
-            while(propertiesIterator.hasNext()) {
-                Property property = (Property) propertiesIterator.next();
-                if (property.getName().equals(DEVICE_REMOTE_AID_PROPERTY)) {
-                    return (AID)property.getValue();
-                }
-            }
-        }
-        return null;
     }
 
     //endregion

@@ -38,8 +38,10 @@ package com.maschel.lca.lcadevice.agent.behaviour;
 import com.google.gson.Gson;
 import com.maschel.lca.lcadevice.agent.message.mapper.AnalyticsSensorDataMapper;
 import com.maschel.lca.lcadevice.analytics.storage.AnalyticsSensorData;
+import com.maschel.lca.lcadevice.config.ConfigurationHelper;
 import com.maschel.lca.lcadevice.device.Device;
 import com.maschel.lca.message.response.AnalyticsDataMessage;
+import jade.core.AID;
 import jade.core.Agent;
 import jade.core.behaviours.OneShotBehaviour;
 import jade.lang.acl.ACLMessage;
@@ -49,6 +51,7 @@ import java.util.List;
 public class AnalyticDataSyncBehaviour extends OneShotBehaviour {
 
     private static String ANALYTIC_ONTOLOGY = "analytic";
+    private final String DEVICE_ID_PARAMETER = "deviceId";
 
     private AnalyticsSensorDataMapper analyticsSensorDataMapper = new AnalyticsSensorDataMapper();
     private Gson gson = new Gson();
@@ -62,9 +65,12 @@ public class AnalyticDataSyncBehaviour extends OneShotBehaviour {
 
     @Override
     public void action() {
+        AID commAID = new AID(ConfigurationHelper.getCloudPlatformCommAgentAID(), AID.ISGUID);
+        commAID.addAddresses(ConfigurationHelper.getCloudPlatformAddress());
+
         ACLMessage msg = new ACLMessage(ACLMessage.INFORM);
-        // TODO: Analytic data should be send to cloud (not this agent).
-        msg.addReceiver(myAgent.getAID());
+        msg.addReceiver(commAID);
+        msg.addUserDefinedParameter(DEVICE_ID_PARAMETER, agentDevice.getId());
         msg.setOntology(ANALYTIC_ONTOLOGY);
 
         List<AnalyticsSensorData> sensorDataList = agentDevice.getAnalyticService().getAnalyticsSensorData(false);

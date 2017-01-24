@@ -42,12 +42,12 @@ import jade.core.Agent;
 import jade.core.behaviours.CyclicBehaviour;
 import jade.domain.DFService;
 import jade.lang.acl.ACLMessage;
-import jade.lang.acl.MessageTemplate;
 
 public class CloudDeviceAgent extends Agent {
 
     public static final String SENSOR_ONTOLOGY = "sensor";
     public static final String ACTUATOR_ONTOLOGY = "actuator";
+    public static final String ANALYTIC_ONTOLOGY = "analytic";
 
     private Device agentDevice;
     private AID remoteDeviceAID;
@@ -76,12 +76,16 @@ public class CloudDeviceAgent extends Agent {
 
         @Override
         public void action() {
-
-            MessageTemplate mtPerformative = MessageTemplate.MatchPerformative(ACLMessage.REQUEST);
-            ACLMessage msg = myAgent.receive(mtPerformative);
+            ACLMessage msg = myAgent.receive();
 
             if(msg != null) {
-                myAgent.addBehaviour(new DeviceMessageForwardBehaviour(myAgent, remoteDeviceAID, msg));
+                if (msg.getOntology() != null && msg.getOntology().equals(ANALYTIC_ONTOLOGY)) {
+                    // Store Analytic data
+                    System.out.println("Analytics!!!!");
+                } else {
+                    // Forward Message from API to Device
+                    myAgent.addBehaviour(new DeviceMessageForwardBehaviour(myAgent, remoteDeviceAID, msg));
+                }
             } else {
                 block();
             }
