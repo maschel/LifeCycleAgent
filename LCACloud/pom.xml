@@ -27,9 +27,23 @@
                         <program>
                             <mainClass>jade.Boot</mainClass>
                             <id>lcacloud</id>
+			    <commandLineArguments>
+                                <commandLineArgument>-agents "CloudCommAgent:com.maschel.lca.lcacloud.agent.CloudCommAgent"</commandLineArgument>
+                                <commandLineArgument>-mtps "jade.mtp.http.MessageTransportProtocol(http://192.168.1.101:7778)"</commandLineArgument>
+				<commandLineArgument>-platform-id "CloudPlatform"</commandLineArgument>
+                            </commandLineArguments>
                         </program>
                     </programs>
                 </configuration>
+		<executions>
+                    <execution>
+                        <id>make-assembly</id> <!-- this is used for inheritance merges -->
+                        <phase>package</phase> <!-- bind to the packaging phase -->
+                        <goals>
+                            <goal>assemble</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
 
         </plugins>
