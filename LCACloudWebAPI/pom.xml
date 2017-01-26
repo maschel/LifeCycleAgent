@@ -5,7 +5,7 @@
     <parent>
         <artifactId>life-cycle-agent</artifactId>
         <groupId>com.maschel</groupId>
-        <version>0.4.3-SNAPSHOT</version>
+        <version>1.0.0</version>
     </parent>
 
     <artifactId>lcacloudwebapi</artifactId>
@@ -28,7 +28,7 @@
         <dependency>
             <groupId>com.maschel</groupId>
             <artifactId>LCAMessage</artifactId>
-            <version>0.4.3-SNAPSHOT</version>
+            <version>1.0.0</version>
         </dependency>
 
         <dependency>

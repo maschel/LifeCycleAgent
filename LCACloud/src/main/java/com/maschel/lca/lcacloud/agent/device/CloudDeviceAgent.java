@@ -35,8 +35,11 @@
 
 package com.maschel.lca.lcacloud.agent.device;
 
+import com.google.gson.Gson;
 import com.maschel.lca.lcacloud.agent.device.behaviour.DeviceMessageForwardBehaviour;
+import com.maschel.lca.lcacloud.analytics.Analytics;
 import com.maschel.lca.lcacloud.model.Device;
+import com.maschel.lca.message.response.AnalyticsDataMessage;
 import jade.core.AID;
 import jade.core.Agent;
 import jade.core.behaviours.CyclicBehaviour;
@@ -48,6 +51,8 @@ public class CloudDeviceAgent extends Agent {
     public static final String SENSOR_ONTOLOGY = "sensor";
     public static final String ACTUATOR_ONTOLOGY = "actuator";
     public static final String ANALYTIC_ONTOLOGY = "analytic";
+
+    private Gson gson = new Gson();
 
     private Device agentDevice;
     private AID remoteDeviceAID;
@@ -81,7 +86,13 @@ public class CloudDeviceAgent extends Agent {
             if(msg != null) {
                 if (msg.getOntology() != null && msg.getOntology().equals(ANALYTIC_ONTOLOGY)) {
                     // Store Analytic data
-                    System.out.println("Analytics!!!!");
+                    try {
+                        AnalyticsDataMessage analyticsDataMessage = gson.fromJson(msg.getContent(), AnalyticsDataMessage.class);
+                        Analytics.getInstance().store(analyticsDataMessage);
+                    } catch(Exception e) {
+                        System.out.println("ERROR: Failed to store analytic data, reason: " + e.getMessage());
+                    }
+
                 } else {
                     // Forward Message from API to Device
                     myAgent.addBehaviour(new DeviceMessageForwardBehaviour(myAgent, remoteDeviceAID, msg));

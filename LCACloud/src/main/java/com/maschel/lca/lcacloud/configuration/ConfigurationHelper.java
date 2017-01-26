@@ -3,7 +3,7 @@
  *
  *  MIT License
  *
- *  Copyright (c) 2016
+ *  Copyright (c) 2017
  *
  *  Geoffrey Mastenbroek, geoffrey.mastenbroek@student.hu.nl
  *  Feiko Wielsma, feiko.wielsma@student.hu.nl
@@ -33,20 +33,35 @@
  *
  */
 
-package com.maschel.lca.message.dto;
+package com.maschel.lca.lcacloud.configuration;
 
-public class AnalyticsSensorDataDTO {
-    public String name;
-    public String aggregate;
-    public String date;
-    public Object value;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
+import java.util.Properties;
 
-    public AnalyticsSensorDataDTO() {}
+public class ConfigurationHelper {
 
-    public AnalyticsSensorDataDTO(String name, String aggregate, String date, Object value) {
-        this.name = name;
-        this.aggregate = aggregate;
-        this.date = date;
-        this.value = value;
+    private static String PROPERTIES_FILE = "cloudconfig.properties";
+    private static Properties properties = new Properties();
+
+    static {
+        InputStream inputStream = ConfigurationHelper.class.getClassLoader().getResourceAsStream(PROPERTIES_FILE);
+        try {
+            if (inputStream != null) {
+                properties.load(inputStream);
+            } else {
+                throw new FileNotFoundException("Cloud property file '" + PROPERTIES_FILE + "' not found in the classpath.");
+            }
+        } catch(Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public static String getAnalyticsDBHost() {
+        return properties.getProperty("analytics_db_host", "localhost");
+    }
+
+    public static Integer getAnalyticsDBPort() {
+        return Integer.parseInt(properties.getProperty("analytics_db_port", "27017"));
     }
 }
