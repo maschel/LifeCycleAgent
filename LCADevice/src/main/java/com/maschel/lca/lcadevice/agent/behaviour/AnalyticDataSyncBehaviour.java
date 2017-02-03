@@ -73,7 +73,7 @@ public class AnalyticDataSyncBehaviour extends OneShotBehaviour {
         msg.addUserDefinedParameter(DEVICE_ID_PARAMETER, agentDevice.getId());
         msg.setOntology(ANALYTIC_ONTOLOGY);
 
-        List<AnalyticsSensorData> sensorDataList = agentDevice.getAnalyticService().getAnalyticsSensorData(true);
+        List<AnalyticsSensorData> sensorDataList = agentDevice.getAnalyticService().getAnalyticsSensorData(false);
 
         AnalyticsDataMessage content = new AnalyticsDataMessage(
                 agentDevice.getId(),
